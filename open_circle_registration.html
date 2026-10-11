@@ -26,10 +26,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
    2. Change src="open_circle_logo.jpg" to your filename.
    3. For a second OpenSkool logo, duplicate the <img> tag.
    ===================================================== */
-.logo-lg{display:inline-flex;justify-content:center;align-items:center;padding:10px 18px;background:var(--bk);border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.2);min-width:150px;min-height:56px}
-.logo-lg img{height:38px;width:auto;object-fit:contain}
-.logo-sm{display:inline-flex;justify-content:center;align-items:center;height:30px;padding:0 10px;background:var(--bk);border-radius:10px}
-.logo-sm img{height:18px;width:auto;object-fit:contain}
+.logo-lg{display:inline-flex;justify-content:center;align-items:center;padding:14px 28px;background:var(--bk);border-radius:20px;box-shadow:0 4px 16px rgba(0,0,0,.25);min-width:180px}
+.logo-lg img{height:80px;max-height:90px;max-width:280px;width:auto;object-fit:contain;display:block}
+.logo-sm{display:inline-flex;justify-content:center;align-items:center;height:38px;padding:0 12px;background:var(--bk);border-radius:10px}
+.logo-sm img{height:24px;width:auto;object-fit:contain;display:block}
 /* WELCOME */
 .wb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.4rem;padding:1rem 0;max-width:500px;margin:0 auto}
 .wb h1{font-size:clamp(1.7rem,5vw,2.2rem);font-weight:800;color:var(--t1);line-height:1.2;letter-spacing:-.02em}
@@ -120,7 +120,7 @@ textarea.ta:focus{border-color:var(--bk)}
 .ea{display:none;align-items:center;gap:8px;background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:11px 15px;border-radius:16px;font-size:13px;margin-bottom:.9rem}
 .ea.on{display:flex}
 .ss{flex:1;overflow-y:auto;display:flex;flex-direction:column}
-@media(max-width:560px){.card{padding:1.1rem 1rem 1.5rem;min-height:unset}.tg{grid-template-columns:1fr}.rg{grid-template-columns:1fr}.wb h1{font-size:1.55rem}body{padding:.6rem .4rem}}
+@media(max-width:560px){.card{padding:1.1rem 1rem 1.5rem;min-height:unset}.tg{grid-template-columns:1fr}.rg{grid-template-columns:1fr}.wb h1{font-size:1.55rem}.logo-lg img{height:60px}body{padding:.6rem .4rem}}
 </style>
 </head>
 <body>
