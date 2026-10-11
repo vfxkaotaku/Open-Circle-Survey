@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Open Circle by OpenSkool — Community Registration &amp; Survey</title>
+<meta name="description" content="Join Open Circle, a community by OpenSkool where curious minds explore AI, experiment with technology, share knowledge, and build practical skills."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ac:#7ACC00;--acd:#6eb700;--bk:#111;--bg:#0A0A0A;--cd:#FBFBFA;--inp:#F9F9FB;--br:#E5E5EA;--t1:#111;--t2:#555;--tm:#777;--wa:#25D366}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem 1rem;position:relative;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(#555 1px,transparent 1px);background-size:20px 20px;opacity:.15;pointer-events:none;z-index:0}
+.card{width:100%;max-width:672px;background:var(--cd);border-radius:32px;box-shadow:0 30px 70px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);padding:2rem 2.5rem 2.5rem;position:relative;z-index:1;display:flex;flex-direction:column;min-height:640px}
+.pg{display:none;flex-direction:column;flex:1}.pg.on{display:flex}
+/* BADGE */
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#fff;border:1px solid var(--br);font-size:11px;font-weight:600;color:#555;letter-spacing:.04em}
+.bdot{width:6px;height:6px;border-radius:50%;background:var(--ac)}
+.tbadge{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:#555;background:#fff;border:1px solid var(--br);padding:4px 12px;border-radius:999px}
+/* LOGO
+   =====================================================
+   TO SWAP LOGOS:
+   1. Put your logo file (PNG/JPG) in the same folder as this HTML.
+   2. Change src="open_circle_logo.jpg" to your filename.
+   3. For a second OpenSkool logo, duplicate the <img> tag.
+   ===================================================== */
+.logo-lg{display:inline-flex;justify-content:center;align-items:center;padding:10px 18px;background:var(--bk);border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.2);min-width:150px;min-height:56px}
+.logo-lg img{height:38px;width:auto;object-fit:contain}
+.logo-sm{display:inline-flex;justify-content:center;align-items:center;height:30px;padding:0 10px;background:var(--bk);border-radius:10px}
+.logo-sm img{height:18px;width:auto;object-fit:contain}
+/* WELCOME */
+.wb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.4rem;padding:1rem 0;max-width:500px;margin:0 auto}
+.wb h1{font-size:clamp(1.7rem,5vw,2.2rem);font-weight:800;color:var(--t1);line-height:1.2;letter-spacing:-.02em}
+.wb p{font-size:.9rem;color:var(--t2);line-height:1.65}
+.bbc{background:#fff;border:1px solid var(--br);border-radius:20px;padding:1.2rem 1.4rem;text-align:left;width:100%}
+.bbc h3{font-size:11px;font-weight:700;color:var(--tm);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.bul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.bul li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#444;line-height:1.5}
+.bull{width:6px;height:6px;border-radius:50%;background:var(--ac);margin-top:5px;flex-shrink:0}
+/* BUTTONS */
+.btn-p{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--bk);color:#fff;font-size:15px;font-weight:600;padding:12px 32px;border-radius:999px;border:none;cursor:pointer;transition:background .18s;font-family:inherit;text-decoration:none}
+.btn-p:hover{background:#222}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--t1);font-size:13px;font-weight:500;padding:10px 20px;border-radius:999px;border:1px solid var(--br);cursor:pointer;transition:background .15s;font-family:inherit;text-decoration:none}
+.btn-s:hover{background:#f0f0f0}
+.btn-g{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--ac);color:#fff;font-size:14px;font-weight:600;padding:12px 28px;border-radius:999px;border:none;cursor:pointer;transition:background .18s;font-family:inherit}
+.btn-g:hover{background:var(--acd)}.btn-g:disabled{opacity:.5;cursor:not-allowed}
+.btn-wa{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--wa);color:#fff;font-size:15px;font-weight:600;padding:14px 28px;border-radius:999px;border:none;cursor:pointer;transition:background .18s;text-decoration:none;width:100%;font-family:inherit}
+.btn-wa:hover{background:#20ba5a}
+/* FORM HEADER */
+.fh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.lnav{display:flex;align-items:center;gap:8px;cursor:pointer}
+.lnav span{font-size:14px;font-weight:700;color:var(--t1)}
+.sc{font-size:12px;font-weight:600;color:#555;background:#fff;border:1px solid var(--br);padding:4px 14px;border-radius:999px}
+.pbt{width:100%;height:4px;background:var(--br);border-radius:99px;overflow:hidden;margin-bottom:1.4rem}
+.pbf{height:100%;background:var(--ac);border-radius:99px;transition:width .35s ease}
+/* SECTION */
+.st{margin-bottom:1.2rem}
+.st h2{font-size:clamp(1.4rem,4vw,1.8rem);font-weight:800;color:var(--t1);letter-spacing:-.02em;line-height:1.2;margin-bottom:4px}
+.st p{font-size:13px;color:var(--t2)}
+.fc{background:#fff;border:1px solid var(--br);border-radius:24px;padding:1.3rem 1.5rem;margin-bottom:1rem}
+/* FIELDS */
+.fld{margin-bottom:.9rem}.fld:last-child{margin-bottom:0}
+.fld label{display:block;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:5px}
+.fld label .req{color:var(--ac)}.fld label .opt{color:#888;font-weight:400;font-size:12px}
+.iw{position:relative}
+.ii{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#888;pointer-events:none;display:flex;align-items:center}
+.iw input,.iw select{width:100%;padding:11px 13px 11px 38px;background:var(--inp);border:1px solid var(--br);border-radius:14px;font-size:13px;color:var(--t1);font-family:inherit;outline:none;transition:border-color .18s;appearance:none}
+.iw input:focus,.iw select:focus{border-color:var(--bk)}
+.iw input.ef{border-color:#f87171}
+.et{font-size:11px;font-weight:600;color:#ef4444;margin-top:3px;display:none}.et.on{display:block}
+textarea.ta{width:100%;padding:11px 13px;background:var(--inp);border:1px solid var(--br);border-radius:14px;font-size:13px;color:var(--t1);font-family:inherit;outline:none;transition:border-color .18s;resize:none}
+textarea.ta:focus{border-color:var(--bk)}
+/* TOGGLE */
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:8px}
+.tb{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-radius:14px;border:1px solid var(--br);background:var(--inp);color:#333;font-size:13px;font-weight:500;cursor:pointer;transition:all .18s;text-align:left;width:100%;font-family:inherit}
+.tb:hover:not(.sel){border-color:#888}
+.tb.sel{border-color:var(--bk);background:var(--bk);color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.tbc{width:19px;height:19px;border-radius:50%;border:1px solid #ccc;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#888}
+.tb.sel .tbc{border-color:#fff;background:#fff;color:var(--bk)}
+.tbr{width:15px;height:15px;border-radius:50%;border:1px solid #888;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tb.sel .tbr{border-color:#fff;background:#fff}
+.tb.sel .tbr::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--bk);display:block}
+.oi{margin-top:5px;width:100%;padding:9px 11px;background:var(--inp);border:1px solid var(--bk);border-radius:10px;font-size:12px;color:var(--t1);font-family:inherit;outline:none;display:none}
+.oi.on{display:block}
+.ql{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:4px;display:block}
+.qs{font-size:11px;color:#888;font-weight:400;margin-left:5px}
+/* CONFIDENCE */
+.cg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:8px}
+.cb{padding:11px 4px;border-radius:14px;border:1px solid var(--br);background:var(--inp);font-family:inherit;cursor:pointer;text-align:center;transition:all .18s;display:flex;flex-direction:column;align-items:center;gap:2px}
+.cb:hover:not(.sel){border-color:#888}.cb.sel{border-color:var(--bk);background:var(--bk)}
+.cn{font-size:17px;font-weight:800;color:var(--t1)}.cb.sel .cn{color:#fff}
+.cl{font-size:10px;font-weight:500;color:#666}.cb.sel .cl{color:rgba(255,255,255,.7)}
+/* INSIGHT */
+.ib{margin-top:10px;padding:12px;border-radius:14px;background:#F4F4F6;border:1px solid var(--br);font-size:12px;color:#333;line-height:1.6;display:none}.ib.on{display:block}
+.ib strong{display:block;margin-bottom:2px;color:var(--bk);font-weight:700}
+/* REVIEW */
+.rs{padding-bottom:.9rem;margin-bottom:.9rem;border-bottom:1px solid var(--br)}.rs:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.rh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.rh h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tm)}
+.el{font-size:11px;font-weight:700;color:var(--t1);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.rf{font-size:13px}.rf span{font-size:11px;color:#777;display:block;margin-bottom:2px}.rf strong{color:var(--t1);font-weight:500}
+.rf.full{grid-column:1/-1}
+.pbox{padding:13px;border-radius:14px;background:#F4F4F6;border:1px solid var(--br);font-size:12px;color:#555;line-height:1.6;margin-top:11px}
+.pbox strong{display:block;color:var(--t1);font-weight:700;margin-bottom:3px}
+/* NAV + FOOTER */
+.nf{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
+.wf{border-top:1px solid var(--br);padding-top:1.1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:#666}
+.wf a{color:var(--t1);text-decoration:underline}.wf a:hover{color:var(--ac)}
+.sr{display:flex;align-items:center;gap:6px}
+/* SUCCESS */
+.sp{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.4rem;flex:1;justify-content:center;padding:1rem 0}
+.si{width:54px;height:54px;background:rgba(122,204,0,.15);color:#65A30D;border-radius:16px;display:flex;align-items:center;justify-content:center}
+.sp h1{font-size:clamp(1.4rem,4vw,1.9rem);font-weight:800;color:var(--t1);letter-spacing:-.02em}
+.sp p{font-size:14px;color:var(--t2);line-height:1.65;max-width:400px}
+.sa{display:flex;flex-direction:column;gap:9px;width:100%;max-width:420px}
+/* ERROR */
+.ea{display:none;align-items:center;gap:8px;background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:11px 15px;border-radius:16px;font-size:13px;margin-bottom:.9rem}
+.ea.on{display:flex}
+.ss{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+@media(max-width:560px){.card{padding:1.1rem 1rem 1.5rem;min-height:unset}.tg{grid-template-columns:1fr}.rg{grid-template-columns:1fr}.wb h1{font-size:1.55rem}body{padding:.6rem .4rem}}
+</style>
+</head>
+<body>
+<div class="card" id="mc">
+
+<!-- PAGE 0: WELCOME -->
+<div class="pg on" id="p0">
+  <div class="ph">
+    <div class="badge"><span class="bdot"></span>COMMUNITY REGISTRATION &amp; SURVEY</div>
+    <div class="tbadge">
+      <svg width="13" height="13" fill="none" stroke="#7ACC00" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Takes ~3 mins
+    </div>
+  </div>
+  <div class="wb">
+    <!-- LOGO: Replace src="open_circle_logo.jpg" with your logo filename -->
+    <div class="logo-lg">
+      <img src="open_circle_logo.png" alt="Open Circle by OpenSkool" onerror="if(this.src.indexOf('png')!==-1){this.src='open_circle_logo.jpg'}else{this.outerHTML='<span style=color:#7ACC00;font-weight:800;font-size:15px>Open Circle</span>'}"/>
+    </div>
+    <h1>Let&apos;s discover your AI&nbsp;journey.</h1>
+    <p>Welcome to <strong>Open Circle</strong>, a community by <strong>OpenSkool</strong> where curious minds explore AI, experiment with technology, share knowledge, and build practical skills.</p>
+    <div class="bbc">
+      <h3>Before you begin</h3>
+      <ul class="bul">
+        <li><span class="bull"></span><span>This survey takes approximately <strong>3 minutes</strong> to complete.</span></li>
+        <li><span class="bull"></span><span><strong>No advanced AI knowledge</strong> required &mdash; beginners to pros belong here.</span></li>
+        <li><span class="bull"></span><span>Your honest responses help us plan useful workshops and activities.</span></li>
+      </ul>
+    </div>
+    <button class="btn-p" onclick="go(1)">Start Survey <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+  </div>
+  <div class="wf">
+    <span style="font-weight:600;color:#111">Open Circle by OpenSkool</span>
+    <div class="sr">
+      <svg width="13" height="13" fill="none" stroke="#7ACC00" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Questions? <a href="mailto:openschool@gmail.com">openschool@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE FORM (steps 1-4) -->
+<div class="pg" id="pf">
+  <div>
+    <div class="fh">
+      <div class="lnav" onclick="go(0)">
+        <!-- LOGO: compact header version -->
+        <div class="logo-sm">
+          <img src="open_circle_logo.png" alt="Open Circle" onerror="if(this.src.indexOf('png')!==-1){this.src='open_circle_logo.jpg'}else{this.outerHTML='<span style=color:#7ACC00;font-size:11px;font-weight:800>OC</span>'}"/>
+        </div>
+        <span>Open Circle</span>
+      </div>
+      <div class="sc" id="sc">Step 1 of 4</div>
+    </div>
+    <div class="pbt"><div class="pbf" id="pb" style="width:25%"></div></div>
+  </div>
+  <div class="ea" id="ea">
+    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span id="eam"></span>
+  </div>
+  <div class="ss" id="ss">
+
+    <!-- SECTION 1: ABOUT YOU -->
+    <div id="s1" style="display:none">
+      <div class="st"><h2>About You</h2><p>Let&apos;s start with the basics so we know who you are.</p></div>
+      <div class="fc">
+        <div class="fld">
+          <label for="fn">Full name <span class="req">*</span></label>
+          <div class="iw"><span class="ii"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          <input type="text" id="fn" placeholder="Jane Doe" autocomplete="name"/></div>
+          <div class="et" id="e-fn">Full name is required</div>
+        </div>
+        <div class="fld">
+          <label for="em2">Email address <span class="req">*</span></label>
+          <div class="iw"><span class="ii"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+          <input type="email" id="em2" placeholder="jane@example.com" autocomplete="email"/></div>
+          <div class="et" id="e-em2">Please enter a valid email address</div>
+        </div>
+        <div class="fld">
+          <label for="org">College, university, organization or company <span class="req">*</span></label>
+          <div class="iw"><span class="ii"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
+          <input type="text" id="org" placeholder="e.g. Pune University, VJTI, Tech Corp"/></div>
+          <div class="et" id="e-org">Organization or college is required</div>
+        </div>
+        <div class="fld">
+          <label for="role">Current role <span class="req">*</span></label>
+          <div class="iw"><span class="ii"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+          <select id="role"><option>School student</option><option>Diploma student</option><option selected>Undergraduate student</option><option>Postgraduate student</option><option>Working professional</option><option>Educator</option><option>Entrepreneur</option><option>Other</option></select></div>
+        </div>
+        <div class="fld">
+          <label for="fos">Field of study or work <span class="opt">(Optional)</span></label>
+          <div class="iw"><span class="ii"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+          <input type="text" id="fos" placeholder="e.g. Computer Engineering, Mechanical, IT"/></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: AI EXPERIENCE -->
+    <div id="s2" style="display:none">
+      <div class="st"><h2>Your AI Experience</h2><p>Help us understand how you currently interact with artificial intelligence.</p></div>
+      <div class="fc">
+        <span class="ql">Which device do you primarily use for AI? <span class="qs">Select all that apply</span></span>
+        <div class="tg">
+          <div><button class="tb" data-g="aiD" data-v="Laptop / MacBook" onclick="tog(this,'aiD')"><span>Laptop / MacBook</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiD" data-v="Smartphone (Android / iPhone)" onclick="tog(this,'aiD')"><span>Smartphone (Android / iPhone)</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiD" data-v="Tablet / iPad" onclick="tog(this,'aiD')"><span>Tablet / iPad</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiD" data-v="Desktop PC / Workstation" onclick="tog(this,'aiD')"><span>Desktop PC / Workstation</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiD" data-v="Other device" data-oth="aiDO" onclick="tog(this,'aiD')"><span>Other device</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button><input class="oi" id="aiDO" placeholder="Specify other device..."/></div>
+        </div>
+      </div>
+      <div class="fc">
+        <span class="ql">Which AI tools have you used? <span class="qs">Select all that apply</span></span>
+        <div class="tg">
+          <div><button class="tb" data-g="aiT" data-v="ChatGPT" onclick="tog(this,'aiT')"><span>ChatGPT</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiT" data-v="Google Gemini" onclick="tog(this,'aiT')"><span>Google Gemini</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiT" data-v="Claude" onclick="tog(this,'aiT')"><span>Claude</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiT" data-v="Microsoft Copilot" onclick="tog(this,'aiT')"><span>Microsoft Copilot</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiT" data-v="Perplexity" onclick="tog(this,'aiT')"><span>Perplexity</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiT" data-v="NotebookLM" onclick="tog(this,'aiT')"><span>NotebookLM</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiT" data-v="Image or video generation tools" onclick="tog(this,'aiT')"><span>Image / video generation tools</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiT" data-v="I haven't used any AI tools yet" onclick="tog(this,'aiT')"><span>Haven&apos;t used any AI tools yet</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiT" data-v="Other tools" data-oth="aiTO" onclick="tog(this,'aiT')"><span>Other tools</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button><input class="oi" id="aiTO" placeholder="Specify other tool..."/></div>
+        </div>
+      </div>
+      <div class="fc">
+        <span class="ql">Pro or advanced AI models you&apos;ve used or built with? <span class="qs">Select all that apply</span></span>
+        <div class="tg">
+          <div><button class="tb" data-g="aiM" data-v="Claude 3.5 Sonnet / Opus" onclick="tog(this,'aiM')"><span>Claude 3.5 Sonnet / Opus</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiM" data-v="GPT-4o / OpenAI o1 / o3" onclick="tog(this,'aiM')"><span>GPT-4o / OpenAI o1 / o3</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiM" data-v="Google Gemini 1.5 Pro / Flash" onclick="tog(this,'aiM')"><span>Google Gemini 1.5 Pro / Flash</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiM" data-v="DeepSeek (V3 / R1)" onclick="tog(this,'aiM')"><span>DeepSeek (V3 / R1)</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiM" data-v="Llama 3 / 3.1 / 3.3 (Open Source)" onclick="tog(this,'aiM')"><span>Llama 3 / 3.1 / 3.3</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiM" data-v="Mistral / Mixtral" onclick="tog(this,'aiM')"><span>Mistral / Mixtral</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiM" data-v="GitHub Copilot / Cursor AI" onclick="tog(this,'aiM')"><span>GitHub Copilot / Cursor AI</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiM" data-v="I haven't used pro models yet" onclick="tog(this,'aiM')"><span>Haven&apos;t used pro models yet</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiM" data-v="Other advanced models" data-oth="aiMO" onclick="tog(this,'aiM')"><span>Other advanced models</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button><input class="oi" id="aiMO" placeholder="Specify other model..."/></div>
+        </div>
+      </div>
+      <div class="fc">
+        <span class="ql">What do you mainly use AI for? <span class="qs">Select all that apply</span></span>
+        <div class="tg">
+          <div><button class="tb" data-g="aiU" data-v="Studying, assignments, and notes" onclick="tog(this,'aiU')"><span>Studying, assignments, notes</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiU" data-v="Coding, debugging, or technical projects" onclick="tog(this,'aiU')"><span>Coding, debugging, tech projects</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiU" data-v="Research and information gathering" onclick="tog(this,'aiU')"><span>Research and information gathering</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiU" data-v="Content writing and communication" onclick="tog(this,'aiU')"><span>Content writing, communication</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiU" data-v="Image, video, or graphic design" onclick="tog(this,'aiU')"><span>Image, video, graphic design</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiU" data-v="Productivity and automation" onclick="tog(this,'aiU')"><span>Productivity and automation</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiU" data-v="Business ideas and entrepreneurship" onclick="tog(this,'aiU')"><span>Business ideas, entrepreneurship</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiU" data-v="I don't use AI yet" onclick="tog(this,'aiU')"><span>I don&apos;t use AI yet</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="aiU" data-v="Other" data-oth="aiUO" onclick="tog(this,'aiU')"><span>Other</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button><input class="oi" id="aiUO" placeholder="Specify other use case..."/></div>
+        </div>
+      </div>
+      <div class="fc">
+        <span class="ql">How confident are you in using AI tools?</span>
+        <div class="cg">
+          <button class="cb" data-lv="1" onclick="setC(this,1)"><span class="cn">1</span><span class="cl">Beginner</span></button>
+          <button class="cb" data-lv="2" onclick="setC(this,2)"><span class="cn">2</span><span class="cl">Basic</span></button>
+          <button class="cb sel" data-lv="3" onclick="setC(this,3)"><span class="cn">3</span><span class="cl">Comfortable</span></button>
+          <button class="cb" data-lv="4" onclick="setC(this,4)"><span class="cn">4</span><span class="cl">Advanced</span></button>
+          <button class="cb" data-lv="5" onclick="setC(this,5)"><span class="cn">5</span><span class="cl">Expert</span></button>
+        </div>
+      </div>
+      <div class="fc">
+        <span class="ql">How often do you use AI?</span>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:7px">
+          <button class="tb" data-g="aiFr" data-v="Multiple times a day" onclick="rad(this,'aiFr')"><span>Multiple times a day</span><span class="tbr"></span></button>
+          <button class="tb" data-g="aiFr" data-v="Daily" onclick="rad(this,'aiFr')"><span>Daily</span><span class="tbr"></span></button>
+          <button class="tb sel" data-g="aiFr" data-v="A few times a week" onclick="rad(this,'aiFr')"><span>A few times a week</span><span class="tbr"></span></button>
+          <button class="tb" data-g="aiFr" data-v="Occasionally" onclick="rad(this,'aiFr')"><span>Occasionally</span><span class="tbr"></span></button>
+          <button class="tb" data-g="aiFr" data-v="Never" onclick="rad(this,'aiFr')"><span>Never</span><span class="tbr"></span></button>
+        </div>
+      </div>
+      <div class="fc">
+        <span class="ql">Which statement best describes generative AI?</span>
+        <p style="font-size:11px;color:#666;margin:4px 0 8px">Quick knowledge check &mdash; not an exam!</p>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <button class="tb" data-g="aiK" data-v="correct" onclick="rad(this,'aiK');ins('correct')"><span>It can generate new content based on patterns learned from data.</span><span class="tbr"></span></button>
+          <button class="tb" data-g="aiK" data-v="w1" onclick="rad(this,'aiK');ins('wrong')"><span>It always provides completely accurate information.</span><span class="tbr"></span></button>
+          <button class="tb" data-g="aiK" data-v="w2" onclick="rad(this,'aiK');ins('wrong')"><span>It replaces the need to verify information.</span><span class="tbr"></span></button>
+          <button class="tb" data-g="aiK" data-v="w3" onclick="rad(this,'aiK');ins('wrong')"><span>I am not sure yet.</span><span class="tbr"></span></button>
+        </div>
+        <div class="ib" id="ib"><strong>Quick Insight:</strong><span id="it"></span></div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: INTERESTS -->
+    <div id="s3" style="display:none">
+      <div class="st"><h2>Your Interests &amp; Thoughts</h2><p>Tell us what you&apos;d like to achieve and share your perspective on AI.</p></div>
+      <div class="fc">
+        <span class="ql">What would you most like to learn through Open Circle? <span class="qs">Select all that apply</span></span>
+        <div class="tg">
+          <div><button class="tb" data-g="int" data-v="Using AI tools effectively" onclick="tog(this,'int')"><span>Using AI tools effectively</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="int" data-v="AI for engineering and technical projects" onclick="tog(this,'int')"><span>AI for engineering &amp; technical projects</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="int" data-v="Coding and app development" onclick="tog(this,'int')"><span>Coding and app development</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="int" data-v="AI automation and productivity" onclick="tog(this,'int')"><span>AI automation and productivity</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="int" data-v="Graphic design, video editing, and content creation" onclick="tog(this,'int')"><span>Graphic design, video &amp; content</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="int" data-v="Robotics, electronics, and hardware" onclick="tog(this,'int')"><span>Robotics, electronics, hardware</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="int" data-v="Research and problem-solving" onclick="tog(this,'int')"><span>Research and problem-solving</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="int" data-v="Entrepreneurship and startup building" onclick="tog(this,'int')"><span>Entrepreneurship, startup building</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="int" data-v="Other" data-oth="intO" onclick="tog(this,'int')"><span>Other</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button><input class="oi" id="intO" placeholder="Specify other topic..."/></div>
+        </div>
+      </div>
+      <div class="fc">
+        <span class="ql">Which learning format interests you most?</span>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:7px">
+          <button class="tb sel" data-g="lf" data-v="Live hands-on workshops" onclick="rad(this,'lf')"><span>Live hands-on workshops</span><span class="tbr"></span></button>
+          <button class="tb" data-g="lf" data-v="Real-world projects" onclick="rad(this,'lf')"><span>Real-world projects</span><span class="tbr"></span></button>
+          <button class="tb" data-g="lf" data-v="Short tutorials and resources" onclick="rad(this,'lf')"><span>Short tutorials and resources</span><span class="tbr"></span></button>
+          <button class="tb" data-g="lf" data-v="Peer learning and discussions" onclick="rad(this,'lf')"><span>Peer learning and discussions</span><span class="tbr"></span></button>
+          <button class="tb" data-g="lf" data-v="Expert sessions and guest speakers" onclick="rad(this,'lf')"><span>Expert sessions and guest speakers</span><span class="tbr"></span></button>
+          <button class="tb" data-g="lf" data-v="Hackathons and challenges" onclick="rad(this,'lf')"><span>Hackathons and challenges</span><span class="tbr"></span></button>
+        </div>
+      </div>
+      <div class="fc">
+        <label class="ql" for="ps">One task or problem you&apos;d like AI to help solve? <span class="qs">(Optional)</span></label>
+        <textarea class="ta" id="ps" rows="3" placeholder="e.g. automating a repetitive task, studying more efficiently, or building an app."></textarea>
+      </div>
+      <div class="fc">
+        <label class="ql" for="at">What excites you about the next 2 years in AI and tech? <span class="qs">(Optional)</span></label>
+        <textarea class="ta" id="at" rows="3" placeholder="Share your thoughts in simple words..."></textarea>
+      </div>
+      <div class="fc">
+        <span class="ql">Interested in participating in Open Circle activities?</span>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:7px">
+          <button class="tb sel" data-g="pi" data-v="Yes, definitely" onclick="rad(this,'pi')"><span>Yes, definitely</span><span class="tbr"></span></button>
+          <button class="tb" data-g="pi" data-v="Maybe, I'd like to learn more" onclick="rad(this,'pi')"><span>Maybe, I&apos;d like to learn more</span><span class="tbr"></span></button>
+          <button class="tb" data-g="pi" data-v="Just exploring for now" onclick="rad(this,'pi')"><span>Just exploring for now</span><span class="tbr"></span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: REVIEW -->
+    <div id="s4" style="display:none">
+      <div class="st"><h2>Review Your Responses</h2><p>Please review your information before submitting to Open Circle.</p></div>
+      <div class="fc">
+        <div class="rs"><div class="rh"><h3>About You</h3><button class="el" onclick="go(1)">Edit</button></div>
+          <div class="rg">
+            <div class="rf"><span>Full Name</span><strong id="r1"></strong></div>
+            <div class="rf"><span>Email Address</span><strong id="r2"></strong></div>
+            <div class="rf"><span>Organization / College</span><strong id="r3"></strong></div>
+            <div class="rf"><span>Current Role</span><strong id="r4"></strong></div>
+          </div>
+        </div>
+        <div class="rs"><div class="rh"><h3>AI Experience</h3><button class="el" onclick="go(2)">Edit</button></div>
+          <div class="rg">
+            <div class="rf"><span>Devices Used</span><strong id="r5"></strong></div>
+            <div class="rf"><span>AI Tools Used</span><strong id="r6"></strong></div>
+            <div class="rf"><span>Pro AI Models</span><strong id="r7"></strong></div>
+            <div class="rf"><span>Main Use Cases</span><strong id="r8"></strong></div>
+            <div class="rf"><span>Confidence &amp; Frequency</span><strong id="r9"></strong></div>
+          </div>
+        </div>
+        <div class="rs"><div class="rh"><h3>Interests &amp; Thoughts</h3><button class="el" onclick="go(3)">Edit</button></div>
+          <div class="rg">
+            <div class="rf"><span>Learning Interests</span><strong id="r10"></strong></div>
+            <div class="rf"><span>Preferred Format</span><strong id="r11"></strong></div>
+            <div class="rf full" id="r12w" style="display:none"><span>Problem to Solve</span><strong id="r12" style="font-style:italic;font-weight:400"></strong></div>
+            <div class="rf full" id="r13w" style="display:none"><span>Industry Perspective</span><strong id="r13" style="font-style:italic;font-weight:400"></strong></div>
+          </div>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#334155">
+            <svg width="16" height="16" fill="none" stroke="#7ACC00" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Google Sheet: <strong id="gsStatus">Checking...</strong></span>
+          </div>
+          <button type="button" onclick="promptSheetUrl()" style="background:#fff;border:1px solid #cbd5e1;padding:5px 12px;border-radius:7px;font-size:11px;font-weight:600;color:#0f172a;cursor:pointer;display:inline-flex;align-items:center;gap:4px">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Connect / Set Sheet URL
+          </button>
+        </div>
+        <div class="pbox"><strong>Privacy Notice</strong>Your responses are strictly confidential and used solely by the OpenSkool team to design relevant workshops and community activities. Questions? <a href="mailto:openschool@gmail.com" style="color:#111;text-decoration:underline">openschool@gmail.com</a></div>
+      </div>
+    </div>
+
+  </div><!-- /ss -->
+  <div class="nf">
+    <button class="btn-s" onclick="back()"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back</button>
+    <button class="btn-p" id="cb" onclick="nxt()">Continue <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    <button class="btn-g" id="sb" style="display:none" onclick="sub()"><span id="sbt">Complete &amp; Submit</span> <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button>
+  </div>
+</div>
+
+<!-- PAGE SUCCESS -->
+<div class="pg" id="ps2">
+  <div class="sp">
+    <div class="logo-lg"><img src="open_circle_logo.png" alt="Open Circle by OpenSkool" onerror="if(this.src.indexOf('png')!==-1){this.src='open_circle_logo.jpg'}else{this.outerHTML='<span style=color:#7ACC00;font-weight:800;font-size:15px>Open Circle</span>'}"/></div>
+    <div class="si"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+    <div><h1 style="margin-bottom:8px">You&apos;re in. Welcome to Open Circle!</h1>
+    <p>Thanks for sharing your AI journey with us. Your responses will help us build more relevant learning experiences, practical workshops, and opportunities for the community.</p></div>
+    <div class="sa">
+      <a href="https://chat.whatsapp.com/HiikbPXGWttEWqVdC0kxzJ" target="_blank" rel="noopener noreferrer" class="btn-wa">
+        <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Join Official WhatsApp Community
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+      <button class="btn-s" onclick="rst()" style="justify-content:center;width:100%"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Submit Another Response</button>
+    </div>
+    <p style="font-size:12px;color:#666">Confirmation saved for <strong id="seml" style="color:#111"></strong>. Need help? <a href="mailto:openschool@gmail.com" style="color:#111;text-decoration:underline">openschool@gmail.com</a></p>
+  </div>
+</div>
+
+</div>
+<script>
+var step=0,conf=3;
+var multi={aiD:[],aiT:[],aiM:[],aiU:[],int:[]};
+var radio={aiFr:'A few times a week',aiK:null,lf:'Live hands-on workshops',pi:'Yes, definitely'};
+function go(s){step=s;render();window.scrollTo({top:0,behavior:'smooth'})}
+function render(){
+  document.getElementById('p0').classList.toggle('on',step===0);
+  document.getElementById('pf').classList.toggle('on',step>=1&&step<=4);
+  document.getElementById('ps2').classList.toggle('on',step===5);
+  if(step>=1&&step<=4){
+    [1,2,3,4].forEach(function(i){document.getElementById('s'+i).style.display=i===step?'block':'none'});
+    document.getElementById('sc').textContent='Step '+step+' of 4';
+    document.getElementById('pb').style.width=(step/4*100)+'%';
+    document.getElementById('cb').style.display=step<4?'inline-flex':'none';
+    document.getElementById('sb').style.display=step===4?'inline-flex':'none';
+    if(step===4){bldRev();updateSheetStatusUI();}
+  }
+  if(step===5)document.getElementById('seml').textContent=document.getElementById('em2').value;
+  document.getElementById('ea').classList.remove('on');
+}
+function back(){go(step>1?step-1:0)}
+function nxt(){if(step===1&&!val1())return;go(step+1)}
+// =========================================================================
+// 🟢 GOOGLE SPREADSHEET WEB APP URL
+// Paste your deployed Google Apps Script URL between the quotes below:
+// Example: var GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycby.../exec";
+// (You can also set it anytime by clicking "Connect Google Sheet" on the review step)
+// =========================================================================
+var GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwzQOBFw0B5_YtnuVYg5NhjnOZI_ZJi2bG53zSE8rd2Y41yMw_ZwjfnwD2KaanyhEdE/exec";
+
+function getActiveSheetUrl() {
+  return (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL.indexOf("http") === 0) 
+    ? GOOGLE_SHEET_URL 
+    : (localStorage.getItem("open_circle_sheet_url") || "");
+}
+
+function promptSheetUrl() {
+  var current = getActiveSheetUrl();
+  var input = prompt("Paste your Google Apps Script Web App URL below:\n(Starts with https://script.google.com/macros/s/.../exec)", current);
+  if (input !== null) {
+    input = input.trim();
+    if (input) {
+      localStorage.setItem("open_circle_sheet_url", input);
+      alert("✅ Google Sheets URL successfully saved! Responses will now be recorded to your sheet.");
+    } else {
+      localStorage.removeItem("open_circle_sheet_url");
+      alert("Google Sheets URL cleared. Form is now in Demo Mode.");
+    }
+    updateSheetStatusUI();
+  }
+}
+
+function updateSheetStatusUI() {
+  var el = document.getElementById("gsStatus");
+  if (!el) return;
+  var url = getActiveSheetUrl();
+  if (url) {
+    el.innerHTML = '<span style="color:#16a34a;font-weight:700">● Live Connected</span>';
+  } else {
+    el.innerHTML = '<span style="color:#d97706;font-weight:600">○ Demo Mode</span> (Responses not saved)';
+  }
+}
+
+function sub() {
+  var b = document.getElementById('sb');
+  var sbt = document.getElementById('sbt');
+  b.disabled = true;
+  sbt.textContent = 'Saving response...';
+
+  var quizMap = {
+    'correct': 'It can generate new content based on patterns learned from data (Correct)',
+    'w1': 'It always provides completely accurate information (Incorrect)',
+    'w2': 'It replaces the need to verify information (Incorrect)',
+    'w3': 'I am not sure yet'
+  };
+
+  var payload = {
+    timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+    fullName: document.getElementById('fn').value.trim(),
+    email: document.getElementById('em2').value.trim(),
+    organization: document.getElementById('org').value.trim(),
+    role: document.getElementById('role').value,
+    fieldOfStudy: document.getElementById('fos').value.trim(),
+    aiDevices: fmtL(multi.aiD, 'Other device', 'aiDO'),
+    aiTools: fmtL(multi.aiT, 'Other tools', 'aiTO'),
+    proModels: fmtL(multi.aiM, 'Other advanced models', 'aiMO'),
+    aiUseCases: fmtL(multi.aiU, 'Other', 'aiUO'),
+    confidence: conf + ' / 5',
+    frequency: radio.aiFr || '',
+    quizAnswer: quizMap[radio.aiK] || radio.aiK || 'Not answered',
+    interests: fmtL(multi.int, 'Other', 'intO'),
+    learningFormat: radio.lf || '',
+    problemToSolve: document.getElementById('ps').value.trim(),
+    industryThoughts: document.getElementById('at').value.trim(),
+    participationInterest: radio.pi || ''
+  };
+
+  var endpoint = getActiveSheetUrl();
+
+  // If no URL configured, notify user or proceed in demo mode
+  if (!endpoint) {
+    console.warn("No Google Apps Script URL configured. Payload ready to send:", payload);
+    var proceed = confirm(
+      "Notice: Google Sheet is not connected yet.\n\n" +
+      "Would you like to enter your Google Apps Script Web App URL now?\n" +
+      "(Click 'OK' to enter URL, or 'Cancel' to continue in Demo Mode)"
+    );
+    if (proceed) {
+      b.disabled = false;
+      sbt.innerHTML = 'Complete &amp; Submit';
+      promptSheetUrl();
+      return;
+    } else {
+      setTimeout(function() {
+        b.disabled = false;
+        sbt.innerHTML = 'Complete &amp; Submit';
+        go(5);
+      }, 700);
+      return;
+    }
+  }
+
+  // Send to Google Sheets Apps Script Web App
+  fetch(endpoint, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  })
+  .then(function() {
+    b.disabled = false;
+    sbt.innerHTML = 'Complete &amp; Submit';
+    go(5);
+  })
+  .catch(function(err) {
+    console.error("Submission failed, continuing to success:", err);
+    b.disabled = false;
+    sbt.innerHTML = 'Complete &amp; Submit';
+    go(5);
+  });
+}
+function val1(){
+  var ok=true,fn=document.getElementById('fn').value.trim(),em=document.getElementById('em2').value.trim(),og=document.getElementById('org').value.trim();
+  clrE();
+  if(!fn){shE('fn','e-fn');ok=false}
+  if(!em||!/\S+@\S+\.\S+/.test(em)){shE('em2','e-em2');ok=false}
+  if(!og){shE('org','e-org');ok=false}
+  if(!ok){document.getElementById('eam').textContent='Please fill in all required fields correctly.';document.getElementById('ea').classList.add('on')}
+  return ok;
+}
+function shE(i,e){document.getElementById(i).classList.add('ef');document.getElementById(e).classList.add('on')}
+function clrE(){document.querySelectorAll('.ef').forEach(function(e){e.classList.remove('ef')});document.querySelectorAll('.et.on').forEach(function(e){e.classList.remove('on')})}
+['fn','em2','org'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('input',function(){el.classList.remove('ef');var e=document.getElementById('e-'+id);if(e)e.classList.remove('on')})});
+function tog(btn,g){
+  var v=btn.getAttribute('data-v'),oth=btn.getAttribute('data-oth'),i=multi[g].indexOf(v);
+  if(i>-1){multi[g].splice(i,1);btn.classList.remove('sel')}else{multi[g].push(v);btn.classList.add('sel')}
+  if(oth){var el=document.getElementById(oth);if(el){el.classList.toggle('on',multi[g].includes(v));if(!multi[g].includes(v))el.value=''}}
+}
+function rad(btn,g){document.querySelectorAll('[data-g="'+g+'"]').forEach(function(b){b.classList.remove('sel')});btn.classList.add('sel');radio[g]=btn.getAttribute('data-v')}
+function setC(btn,lv){document.querySelectorAll('.cb').forEach(function(b){b.classList.remove('sel')});btn.classList.add('sel');conf=lv}
+function ins(t){
+  document.getElementById('ib').classList.add('on');
+  document.getElementById('it').textContent=t==='correct'?'Spot on! Generative AI models recognize patterns in vast amounts of training data to generate text, images, code, and more.':'Great try! Generative AI works primarily by predicting patterns based on data. Verification of important facts is always recommended!';
+}
+function gOth(id){var el=document.getElementById(id);return el?el.value.trim():''}
+function fmtL(arr,k,id){
+  if(!arr.length)return'None';
+  return arr.map(function(x){return x===k&&gOth(id)?'Other ('+gOth(id)+')':x}).join(', ');
+}
+function bldRev(){
+  document.getElementById('r1').textContent=document.getElementById('fn').value||'--';
+  document.getElementById('r2').textContent=document.getElementById('em2').value||'--';
+  document.getElementById('r3').textContent=document.getElementById('org').value||'--';
+  var fos=document.getElementById('fos').value;
+  document.getElementById('r4').textContent=document.getElementById('role').value+(fos?' ('+fos+')':'');
+  document.getElementById('r5').textContent=fmtL(multi.aiD,'Other device','aiDO');
+  document.getElementById('r6').textContent=fmtL(multi.aiT,'Other tools','aiTO');
+  document.getElementById('r7').textContent=fmtL(multi.aiM,'Other advanced models','aiMO');
+  document.getElementById('r8').textContent=fmtL(multi.aiU,'Other','aiUO');
+  document.getElementById('r9').textContent='Level '+conf+'/5 \u2022 '+(radio.aiFr||'--');
+  document.getElementById('r10').textContent=fmtL(multi.int,'Other','intO');
+  document.getElementById('r11').textContent=radio.lf||'--';
+  var ps=document.getElementById('ps').value.trim();
+  document.getElementById('r12w').style.display=ps?'block':'none';
+  document.getElementById('r12').textContent=ps?'"'+ps+'"':'';
+  var at=document.getElementById('at').value.trim();
+  document.getElementById('r13w').style.display=at?'block':'none';
+  document.getElementById('r13').textContent=at?'"'+at+'"':'';
+}
+function rst(){
+  ['fn','em2','org','fos','ps','at','aiDO','aiTO','aiMO','aiUO','intO'].forEach(function(id){var el=document.getElementById(id);if(el)el.value=''});
+  document.getElementById('role').value='Undergraduate student';
+  Object.keys(multi).forEach(function(k){multi[k]=[]});
+  document.querySelectorAll('.tb.sel,.cb.sel').forEach(function(b){b.classList.remove('sel')});
+  radio={aiFr:'A few times a week',aiK:null,lf:'Live hands-on workshops',pi:'Yes, definitely'};
+  document.querySelectorAll('[data-v="A few times a week"],[data-v="Live hands-on workshops"],[data-v="Yes, definitely"]').forEach(function(b){b.classList.add('sel')});
+  conf=3;document.querySelectorAll('.cb').forEach(function(b){b.classList.toggle('sel',parseInt(b.getAttribute('data-lv'))===3)});
+  document.querySelectorAll('.oi.on').forEach(function(e){e.classList.remove('on');e.value=''});
+  document.getElementById('ib').classList.remove('on');
+  go(0);
+}
+render();
+</script>
+</body>
+</html>
