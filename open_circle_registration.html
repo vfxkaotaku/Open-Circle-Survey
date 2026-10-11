@@ -314,14 +314,14 @@ netlify-drawer,#netlify-drawer-container,[data-netlify-deploy-preview],[data-net
         </div>
       </div>
       <div class="fc">
-        <span class="ql">Which learning format interests you most?</span>
-        <div style="display:flex;flex-direction:column;gap:7px;margin-top:7px">
-          <button class="tb sel" data-g="lf" data-v="Live hands-on workshops" onclick="rad(this,'lf')"><span>Live hands-on workshops</span><span class="tbr"></span></button>
-          <button class="tb" data-g="lf" data-v="Real-world projects" onclick="rad(this,'lf')"><span>Real-world projects</span><span class="tbr"></span></button>
-          <button class="tb" data-g="lf" data-v="Short tutorials and resources" onclick="rad(this,'lf')"><span>Short tutorials and resources</span><span class="tbr"></span></button>
-          <button class="tb" data-g="lf" data-v="Peer learning and discussions" onclick="rad(this,'lf')"><span>Peer learning and discussions</span><span class="tbr"></span></button>
-          <button class="tb" data-g="lf" data-v="Expert sessions and guest speakers" onclick="rad(this,'lf')"><span>Expert sessions and guest speakers</span><span class="tbr"></span></button>
-          <button class="tb" data-g="lf" data-v="Hackathons and challenges" onclick="rad(this,'lf')"><span>Hackathons and challenges</span><span class="tbr"></span></button>
+        <span class="ql">Which learning format interests you most? <span class="qs">Select all that apply</span></span>
+        <div class="tg">
+          <div><button class="tb" data-g="lf" data-v="Live hands-on workshops" onclick="tog(this,'lf')"><span>Live hands-on workshops</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="lf" data-v="Real-world projects" onclick="tog(this,'lf')"><span>Real-world projects</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="lf" data-v="Short tutorials and resources" onclick="tog(this,'lf')"><span>Short tutorials &amp; resources</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="lf" data-v="Peer learning and discussions" onclick="tog(this,'lf')"><span>Peer learning &amp; discussions</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="lf" data-v="Expert sessions and guest speakers" onclick="tog(this,'lf')"><span>Expert sessions &amp; speakers</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
+          <div><button class="tb" data-g="lf" data-v="Hackathons and challenges" onclick="tog(this,'lf')"><span>Hackathons &amp; challenges</span><span class="tbc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></button></div>
         </div>
       </div>
       <div class="fc">
@@ -405,8 +405,8 @@ netlify-drawer,#netlify-drawer-container,[data-netlify-deploy-preview],[data-net
 </div>
 <script>
 var step=0,conf=3;
-var multi={aiD:[],aiT:[],aiM:[],aiU:[],int:[]};
-var radio={aiFr:'A few times a week',aiK:null,lf:'Live hands-on workshops',pi:'Yes, definitely'};
+var multi={aiD:[],aiT:[],aiM:[],aiU:[],int:[],lf:[]};
+var radio={aiFr:'A few times a week',aiK:null,pi:'Yes, definitely'};
 function go(s){step=s;render();window.scrollTo({top:0,behavior:'smooth'})}
 function render(){
   document.getElementById('p0').classList.toggle('on',step===0);
@@ -460,7 +460,7 @@ function sub() {
     frequency: radio.aiFr || '',
     quizAnswer: quizMap[radio.aiK] || radio.aiK || 'Not answered',
     interests: fmtL(multi.int, 'Other', 'intO'),
-    learningFormat: radio.lf || '',
+    learningFormat: multi.lf.length ? multi.lf.join(', ') : 'None',
     problemToSolve: document.getElementById('ps').value.trim(),
     industryThoughts: document.getElementById('at').value.trim(),
     participationInterest: radio.pi || ''
@@ -550,7 +550,7 @@ function bldRev(){
   document.getElementById('r8').textContent=fmtL(multi.aiU,'Other','aiUO');
   document.getElementById('r9').textContent='Level '+conf+'/5 \u2022 '+(radio.aiFr||'--');
   document.getElementById('r10').textContent=fmtL(multi.int,'Other','intO');
-  document.getElementById('r11').textContent=radio.lf||'--';
+  document.getElementById('r11').textContent=multi.lf.length?multi.lf.join(', '):'--';
   var ps=document.getElementById('ps').value.trim();
   document.getElementById('r12w').style.display=ps?'block':'none';
   document.getElementById('r12').textContent=ps?'"'+ps+'"':'';
@@ -563,8 +563,8 @@ function rst(){
   document.getElementById('role').value='Undergraduate student';
   Object.keys(multi).forEach(function(k){multi[k]=[]});
   document.querySelectorAll('.tb.sel,.cb.sel').forEach(function(b){b.classList.remove('sel')});
-  radio={aiFr:'A few times a week',aiK:null,lf:'Live hands-on workshops',pi:'Yes, definitely'};
-  document.querySelectorAll('[data-v="A few times a week"],[data-v="Live hands-on workshops"],[data-v="Yes, definitely"]').forEach(function(b){b.classList.add('sel')});
+  radio={aiFr:'A few times a week',aiK:null,pi:'Yes, definitely'};
+  document.querySelectorAll('[data-v="A few times a week"],[data-v="Yes, definitely"]').forEach(function(b){b.classList.add('sel')});
   conf=3;document.querySelectorAll('.cb').forEach(function(b){b.classList.toggle('sel',parseInt(b.getAttribute('data-lv'))===3)});
   document.querySelectorAll('.oi.on').forEach(function(e){e.classList.remove('on');e.value=''});
   document.getElementById('ib').classList.remove('on');
