@@ -380,16 +380,6 @@ textarea.ta:focus{border-color:var(--bk)}
             <div class="rf full" id="r13w" style="display:none"><span>Industry Perspective</span><strong id="r13" style="font-style:italic;font-weight:400"></strong></div>
           </div>
         </div>
-        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#334155">
-            <svg width="16" height="16" fill="none" stroke="#7ACC00" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            <span>Google Sheet: <strong id="gsStatus">Checking...</strong></span>
-          </div>
-          <button type="button" onclick="promptSheetUrl()" style="background:#fff;border:1px solid #cbd5e1;padding:5px 12px;border-radius:7px;font-size:11px;font-weight:600;color:#0f172a;cursor:pointer;display:inline-flex;align-items:center;gap:4px">
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            Connect / Set Sheet URL
-          </button>
-        </div>
         <div class="pbox"><strong>Privacy Notice</strong>Your responses are strictly confidential and used solely by the OpenSkool team to design relevant workshops and community activities. Questions? <a href="mailto:openschool@gmail.com" style="color:#111;text-decoration:underline">openschool@gmail.com</a></div>
       </div>
     </div>
@@ -437,50 +427,18 @@ function render(){
     document.getElementById('pb').style.width=(step/4*100)+'%';
     document.getElementById('cb').style.display=step<4?'inline-flex':'none';
     document.getElementById('sb').style.display=step===4?'inline-flex':'none';
-    if(step===4){bldRev();updateSheetStatusUI();}
+    if(step===4){bldRev();}
   }
   if(step===5)document.getElementById('seml').textContent=document.getElementById('em2').value;
   document.getElementById('ea').classList.remove('on');
 }
 function back(){go(step>1?step-1:0)}
 function nxt(){if(step===1&&!val1())return;go(step+1)}
-// =========================================================================
-// 🟢 GOOGLE SPREADSHEET WEB APP URL
-// Paste your deployed Google Apps Script URL between the quotes below:
-// Example: var GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycby.../exec";
-// (You can also set it anytime by clicking "Connect Google Sheet" on the review step)
-// =========================================================================
+
 var GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwcj51oxE9DT4f0BGrb4gCTcHRYmpYqRcNHfoAJ35tlQvkomAdI4eHOjRRw29kYOQuHhg/exec";
 
 function getActiveSheetUrl() {
   return GOOGLE_SHEET_URL;
-}
-
-function promptSheetUrl() {
-  var current = getActiveSheetUrl();
-  var input = prompt("Paste your Google Apps Script Web App URL below:\n(Starts with https://script.google.com/macros/s/.../exec)", current);
-  if (input !== null) {
-    input = input.trim();
-    if (input) {
-      localStorage.setItem("open_circle_sheet_url", input);
-      alert("✅ Google Sheets URL successfully saved! Responses will now be recorded to your sheet.");
-    } else {
-      localStorage.removeItem("open_circle_sheet_url");
-      alert("Google Sheets URL cleared. Form is now in Demo Mode.");
-    }
-    updateSheetStatusUI();
-  }
-}
-
-function updateSheetStatusUI() {
-  var el = document.getElementById("gsStatus");
-  if (!el) return;
-  var url = getActiveSheetUrl();
-  if (url) {
-    el.innerHTML = '<span style="color:#16a34a;font-weight:700">● Live Connected</span>';
-  } else {
-    el.innerHTML = '<span style="color:#d97706;font-weight:600">○ Demo Mode</span> (Responses not saved)';
-  }
 }
 
 function sub() {
